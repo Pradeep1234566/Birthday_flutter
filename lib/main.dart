@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 void main() {
   runApp(BirthdayApp());
@@ -74,13 +75,28 @@ class BirthdayScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
+                      MaterialPageRoute(
+                          builder: (context) => BalloonsGameScreen()),
+                    );
+                  },
+                  icon: Icon(Icons.gamepad),
+                  label: Text("Pop the Balloons"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.orangeAccent,
+                    foregroundColor: Colors.white,
+                  ),
+                ),
+                ElevatedButton.icon(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
                       MaterialPageRoute(builder: (context) => MessageScreen()),
                     );
                   },
                   icon: Icon(Icons.message),
                   label: Text("Read My Message"),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.orangeAccent,
+                    backgroundColor: Colors.pinkAccent,
                     foregroundColor: Colors.white,
                   ),
                 ),
@@ -94,6 +110,14 @@ class BirthdayScreen extends StatelessWidget {
 }
 
 class MemoryLaneScreen extends StatelessWidget {
+  final List<String> imagePaths = [
+    'asset/images/P1.jpg',
+    'asset/images/P2.jpg',
+    'asset/images/P3.jpg',
+    'asset/images/P4.jpg',
+    'asset/images/P5.jpg',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -101,11 +125,123 @@ class MemoryLaneScreen extends StatelessWidget {
         title: Text("Memory Lane"),
         backgroundColor: Colors.pinkAccent,
       ),
-      body: Center(
-        child: Text(
-          "🎉 Memories coming soon!",
-          style: TextStyle(fontSize: 24),
-        ),
+      body: Column(
+        children: [
+          SizedBox(height: 20),
+          Text(
+            "Memories with Meghana 💖",
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 20),
+          CarouselSlider(
+            options: CarouselOptions(
+              height: 300,
+              autoPlay: true,
+              enlargeCenterPage: true,
+            ),
+            items: imagePaths.map((path) {
+              return Builder(
+                builder: (BuildContext context) {
+                  return Container(
+                    margin: EdgeInsets.symmetric(horizontal: 5.0),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      image: DecorationImage(
+                        image: AssetImage(path),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  );
+                },
+              );
+            }).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class BalloonsGameScreen extends StatefulWidget {
+  @override
+  _BalloonsGameScreenState createState() => _BalloonsGameScreenState();
+}
+
+class _BalloonsGameScreenState extends State<BalloonsGameScreen> {
+  List<String> messages = [
+    "You’re amazing! 🎉",
+    "Have a magical day! ✨",
+    "You light up the world! 🌟",
+    "You’re the best! 💖",
+    "Dream big and shine bright! 🌈",
+  ];
+
+  String displayedMessage = "Pop a balloon for a surprise message!";
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Pop the Balloons 🎈"),
+        backgroundColor: Colors.orangeAccent,
+      ),
+      body: Stack(
+        children: [
+          // Background
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Colors.orangeAccent, Colors.pinkAccent],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+          ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  displayedMessage,
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(height: 20),
+                Wrap(
+                  spacing: 10,
+                  runSpacing: 10,
+                  children: List.generate(5, (index) {
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          displayedMessage = messages[index];
+                        });
+                      },
+                      child: Container(
+                        width: 80,
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: Text(
+                            "🎈",
+                            style: TextStyle(fontSize: 32),
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }
