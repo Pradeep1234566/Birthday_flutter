@@ -115,8 +115,9 @@ class MemoryLaneScreen extends StatelessWidget {
     'asset/images/P2.jpg',
     'asset/images/P3.jpg',
     'asset/images/P4.jpg',
-    'asset/images/P5.jpg',
   ];
+
+  final String backgroundImage = 'asset/images/P5.jpg';
 
   @override
   Widget build(BuildContext context) {
@@ -125,36 +126,51 @@ class MemoryLaneScreen extends StatelessWidget {
         title: Text("Memory Lane"),
         backgroundColor: Colors.pinkAccent,
       ),
-      body: Column(
+      body: Stack(
         children: [
-          SizedBox(height: 20),
-          Text(
-            "Memories with Meghana 💖",
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(height: 20),
-          CarouselSlider(
-            options: CarouselOptions(
-              height: 300,
-              autoPlay: true,
-              enlargeCenterPage: true,
+          // Background Image with reduced visibility
+          Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(backgroundImage),
+                fit: BoxFit.cover,
+              ),
             ),
-            items: imagePaths.map((path) {
-              return Builder(
-                builder: (BuildContext context) {
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 5.0),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15),
-                      image: DecorationImage(
-                        image: AssetImage(path),
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  );
-                },
-              );
-            }).toList(),
+            child: Container(
+              color: Colors.black.withOpacity(0.5), // Semi-transparent overlay
+            ),
+          ),
+          // Overlay Content
+          Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min, // Centers the content vertically
+              children: [
+                SizedBox(height: 20),
+                CarouselSlider(
+                  options: CarouselOptions(
+                    height: 300,
+                    autoPlay: true,
+                    enlargeCenterPage: true,
+                  ),
+                  items: imagePaths.map((path) {
+                    return Builder(
+                      builder: (BuildContext context) {
+                        return Container(
+                          margin: EdgeInsets.symmetric(horizontal: 5.0),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            image: DecorationImage(
+                              image: AssetImage(path),
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  }).toList(),
+                ),
+              ],
+            ),
           ),
         ],
       ),
