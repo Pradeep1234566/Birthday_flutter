@@ -185,11 +185,16 @@ class BalloonsGameScreen extends StatefulWidget {
 
 class _BalloonsGameScreenState extends State<BalloonsGameScreen> {
   List<String> messages = [
-    "You’re amazing! 🎉",
-    "Have a magical day! ✨",
-    "You light up the world! 🌟",
-    "You’re the best! 💖",
-    "Dream big and shine bright! 🌈",
+    "In this journey of life, may you continue to find meaning in each moment and wisdom in every experience.",
+    "With every passing year, you become more of who you're meant to be. Here's to that continuous growth.",
+    "Not just today, but every day, I hope you find peace and fulfillment in all that you do.",
+    "True happiness comes not from what we have, but in how we perceive the world and the choices we make. May this year offer you both.",
+    "As you celebrate today, may you be reminded of how much you've already accomplished and how much potential still lies ahead.",
+    "A year older, but not just in age—may you continue to evolve with grace, wisdom, and resilience.",
+    "Time moves on, but wisdom and character are what truly shape us. Here's to another year of adding to that foundation.",
+    "Every year offers a new chapter, and your story continues to be inspiring and impactful.",
+    "May this year provide you with the clarity to understand your true purpose and the courage to chase it.",
+    "You don't need to be the loudest voice in the room to make an impact. Your presence speaks volumes, and it matters more than you'll ever know."
   ];
 
   String displayedMessage = "Pop a balloon for a surprise message!";
